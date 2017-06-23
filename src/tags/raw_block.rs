@@ -45,3 +45,16 @@ fn test_raw() {
     assert_eq!(raw.unwrap().render(&mut Default::default()).unwrap(),
                Some("This is a test".to_owned()));
 }
+
+#[test]
+fn test_raw_ordered() {
+    use std::default::Default;
+
+    let options: LiquidOptions = Default::default();
+    let raw = raw_block("raw",
+                        &[],
+                        &vec![Expression(vec![], "{{abc}}\n{{def}}\n{{ghi}}".to_owned())],
+                        &options);
+    assert_eq!(raw.unwrap().render(&mut Default::default()).unwrap(),
+               Some("{{abc}}\n{{def}}\n{{ghi}}".to_owned()));
+}
